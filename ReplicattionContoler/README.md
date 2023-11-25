@@ -11,14 +11,12 @@ The ReplicationController ensures that there are always two Pods matching the sp
 1. **Apply the ReplicationController Manifest:**
     
     ```bash
-    bashCopy code
     kubectl apply -f pod.yml
     ```
     
 2. **Check ReplicationController Status:**
     
     ```bash
-    bashCopy code
     kubectl get replicationcontroller
     ```
     
@@ -27,7 +25,6 @@ The ReplicationController ensures that there are always two Pods matching the sp
 3. **Check Pod Status:**
     
     ```bash
-    bashCopy code
     kubectl get pods
     ```
     
@@ -36,7 +33,6 @@ The ReplicationController ensures that there are always two Pods matching the sp
 4. **View Pod Logs:**
     
     ```bash
-    bashCopy code
     kubectl logs <pod-name>
     ```
     
@@ -45,7 +41,6 @@ The ReplicationController ensures that there are always two Pods matching the sp
 5. **Scale ReplicationController (optional):**
     
     ```bash
-    bashCopy code
     kubectl scale rc myreplica --replicas=3
     ```
     
@@ -54,7 +49,6 @@ The ReplicationController ensures that there are always two Pods matching the sp
 6. **Clean Up (optional):**
     
     ```bash
-    bashCopy code
     kubectl delete replicationcontroller myreplica
     ```
     
