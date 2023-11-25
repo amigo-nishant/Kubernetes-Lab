@@ -5,7 +5,6 @@ The pod.yml manifest file defines a Kubernetes Pod named nishant-label with labe
 1. **Apply the Pod Manifest:**
     
     ```bash
-    bashCopy code
     kubectl apply -f pod.yml
     
     ```
@@ -13,7 +12,6 @@ The pod.yml manifest file defines a Kubernetes Pod named nishant-label with labe
 2. **Check Pod Status:**
     
     ```bash
-    bashCopy code
     kubectl get pods
     
     ```
@@ -23,7 +21,6 @@ The pod.yml manifest file defines a Kubernetes Pod named nishant-label with labe
 3. **View Pod Logs:**
     
     ```bash
-    bashCopy code
     kubectl logs nishant-label
     
     ```
@@ -33,7 +30,6 @@ The pod.yml manifest file defines a Kubernetes Pod named nishant-label with labe
 4. **Describe Pod:**
     
     ```bash
-    bashCopy code
     kubectl describe pod nishant-label
     
     ```
@@ -43,7 +39,6 @@ The pod.yml manifest file defines a Kubernetes Pod named nishant-label with labe
 5. **Filter Pods by Label:**
     
     ```bash
-    bashCopy code
     kubectl get pods -l env=development
     
     ```
@@ -53,7 +48,6 @@ The pod.yml manifest file defines a Kubernetes Pod named nishant-label with labe
 6. **Filter Pods by Class Label:**
     
     ```bash
-    bashCopy code
     kubectl get pods -l class=pods
     
     ```
@@ -63,7 +57,6 @@ The pod.yml manifest file defines a Kubernetes Pod named nishant-label with labe
 7. **Clean Up (optional):**
     
     ```bash
-    bashCopy code
     kubectl delete pod nishant-label
     
     ```
