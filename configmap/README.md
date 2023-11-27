@@ -1,0 +1,206 @@
+### 1. Create a Database Configuration File (sample.conf) -
+
+Create a file named **`sample.conf`** with your desired database configuration. For example:
+
+```
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=myuser
+DB_PASSWORD=mypassword
+```
+
+### 2. Create a ConfigMap
+
+```bash
+kubectl create configmap mymap --from-file=sample.conf
+```
+
+### 3. Create a Pod with the ConfigMap Volume
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myvolconfig
+spec:
+  containers:
+  - name: c1
+    image: centos
+    command: ["/bin/bash", "-c", "while true; do echo Technical-Guftgu; sleep 5 ; done"]
+    volumeMounts:
+      - name: testconfigmap
+        mountPath: "/tmp/config"   # Config files will be mounted as ReadOnly by default
+  volumes:
+  - name: testconfigmap
+    configMap:
+       name: mymap   # Should match the ConfigMap name created earlier
+       items:
+       - key: sample.conf
+         path: sample.conf
+```
+
+Apply the Pod configuration:
+
+```bash
+kubectl apply -f myvolconfig-pod.yaml
+```
+
+### 4. Verify ConfigMap Mount in the Pod
+
+```bash
+kubectl exec myvolconfig -it -- /bin/bash
+```
+
+Inside the Pod:
+
+```bash
+cd /tmp/config
+cat sample.conf
+exit
+```
+
+This lab demonstrates how to create a ConfigMap from a configuration file and mount it into a Pod, allowing the Pod to access the configuration data.
+
+The provided YAML file **`myvolconfig-env-pod.yaml`** is a Kubernetes manifest file defining a Pod named **`myenvconfig`**. This Pod runs a container based on the CentOS image and has an environment variable (**`MYENV`**) that is populated using a ConfigMap (**`mymap`**).
+
+Let's break down the components of the YAML file and the associated commands:
+
+1. **Pod Definition (`myvolconfig-env-pod.yaml`):**
+    
+    ```yaml
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: myenvconfig
+    spec:
+      containers:
+      - name: c1
+        image: centos
+        command: ["/bin/bash", "-c", "while true; do echo Technical-Guftgu; sleep 5 ; done"]
+        env:
+        - name: MYENV
+          valueFrom:
+            configMapKeyRef:
+              name: mymap
+              key: sample.conf
+    ```
+    
+    ### TYPE - 2
+    **Lab: Creating a ConfigMap and Mounting it in a Pod via ENV**
+    
+    This Pod specification:
+    
+    - Defines a Pod named **`myenvconfig`**.
+    - Contains a single container (**`c1`**) based on the CentOS image.
+    - Runs a bash command in a loop to echo "Technical-Guftgu" every 5 seconds.
+    - Sets an environment variable **`MYENV`** with the value fetched from the **`sample.conf`** key in the **`mymap`** ConfigMap.
+2. **Apply the Configuration:**
+    
+    ```bash
+    kubectl apply -f myvolconfig-env-pod.yaml
+    ```
+    
+    This command deploys the Pod configuration to the Kubernetes cluster.
+    
+3. **Exec into the Pod:**
+    
+    ```bash
+    kubectl exec myenvconfig -it -- /bin/bash
+    ```
+    
+    This command opens an interactive shell (**`/bin/bash`**) inside the running Pod (**`myenvconfig`**), allowing you to execute commands within the Pod.
+    
+4. **Inside the Pod (`env` and `echo` commands):**
+    
+    ```bash
+    env
+    ```
+    
+    This command lists all environment variables inside the Pod.
+    
+    ```bash
+    echo $MYENV
+    exit
+    kubectl delete pod <pod-name>
+    ```
+    
+    This command echoes the value of the **`MYENV`** environment variable, which is set to the content of the **`sample.conf`** key from the **`mymap`** ConfigMap.
+    
+5. **Result:**
+    
+    The output of **`env`** and **`echo $MYENV`** inside the Pod should display the environment variables, and **`MYENV`** should contain the values from the **`sample.conf`** key in the **`mymap`** ConfigMap.
+    
+    ### SECRET
+    
+    1. **Create a Secret File:**
+        
+        Create a file named **`mysecret.yaml`** with the following content:
+        
+        ```yaml
+        apiVersion: v1
+        kind: Secret
+        metadata:
+          name: mysecret
+        data:
+          username: dXNlcm5hbWU=  # base64-encoded username
+          password: cGFzc3dvcmQ=  # base64-encoded password
+        ```
+        
+        To decode the base64-encoded values of **`username`** and **`password`** in a Secret, you can use the following commands in a Unix-like shell (such as Bash):
+        
+        For **`username`**:
+        
+        ```bash
+        echo "dXNlcm5hbWU=" | base64 --decode
+        ```
+        
+        For **`password`**:
+        
+        ```bash
+        echo "cGFzc3dvcmQ=" | base64 --decode
+        ```
+        
+    2. **Create the Secret:**
+        
+        Run the following command to create the Secret:
+        
+        ```bash
+        kubectl apply -f mysecret.yaml
+        ```
+        
+    3. **Create the Pod:**
+        
+        Use the **`myvolsecret`** Pod manifest:
+        
+        ```bash
+        kubectl apply -f myvolsecret.yaml
+        ```
+        
+    4. **Verify Pod Creation:**
+        
+        Ensure that the Pod has been created:
+        
+        ```bash
+        kubectl get pods
+        ```
+        
+    5. **Exec into the Pod:**
+        
+        ```bash
+        kubectl exec myvolsecret -it -- /bin/bash
+        ```
+        
+    6. **Inside the Pod (`ls` command):**
+        
+        Once inside the Pod, navigate to the mount path and list the contents:
+        
+        ```bash
+        cd /tmp/mysecrets
+        ls
+        ```
+        
+        This should display the files corresponding to the keys in the Secret.
+        
+    7. **Result:**
+        
+        The output of the **`ls`** command inside the Pod should show the files representing the keys (**`username`** and **`password`**) from the Secret.
