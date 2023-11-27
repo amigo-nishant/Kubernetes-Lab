@@ -23,15 +23,15 @@ To test and apply the Namespace, we can use the following commands:
     
 5. Apply the Pod configuration using the **`kubectl apply`** command:
         
-        ```bash
+   ```bash
         kubectl apply -f testpod.yaml -n dev
-        ```
+   ```
         
 6. Verify that the Pod has been created:
         
-        ```bash
+    ```bash
         kubectl get pods -n dev
-        ```
+     ```
         
 7. Delete the pod 
     
