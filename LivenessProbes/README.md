@@ -65,7 +65,7 @@ To test the liveness probe for the provided Pod manifest, follow these steps:
         
         See the events LivenessProbes failed 
         
-    2. **Delete the pod **
+    2. **Delete the pod**
     
     ```jsx
     kubectl delete pod mylivenessprobe
