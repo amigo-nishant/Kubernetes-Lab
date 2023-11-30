@@ -26,7 +26,7 @@ spec:
   containers:
   - name: c1
     image: centos
-    command: ["/bin/bash", "-c", "while true; do echo Technical-Guftgu; sleep 5 ; done"]
+    command: ["/bin/bash", "-c", "while true; do echo Hello-World; sleep 5 ; done"]
     volumeMounts:
       - name: testconfigmap
         mountPath: "/tmp/config"   # Config files will be mounted as ReadOnly by default
@@ -76,7 +76,7 @@ Let's break down the components of the YAML file and the associated commands:
       containers:
       - name: c1
         image: centos
-        command: ["/bin/bash", "-c", "while true; do echo Technical-Guftgu; sleep 5 ; done"]
+        command: ["/bin/bash", "-c", "while true; do echo Hello-world; sleep 5 ; done"]
         env:
         - name: MYENV
           valueFrom:
@@ -92,7 +92,8 @@ Let's break down the components of the YAML file and the associated commands:
     
     - Defines a Pod named **`myenvconfig`**.
     - Contains a single container (**`c1`**) based on the CentOS image.
-    - Runs a bash command in a loop to echo "Technical-Guftgu" every 5 seconds.
+    - Runs a bash command in a loop to echo "Hello-World
+    - " every 5 seconds.
     - Sets an environment variable **`MYENV`** with the value fetched from the **`sample.conf`** key in the **`mymap`** ConfigMap.
 2. **Apply the Configuration:**
     
