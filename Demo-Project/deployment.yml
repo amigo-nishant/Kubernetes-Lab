@@ -14,7 +14,7 @@ spec:
             bb: web
       spec:
          containers:
-            - name: bb-site
+            - name: my-site
               image: getting-started
               imagePullPolicy: Never
 ---
