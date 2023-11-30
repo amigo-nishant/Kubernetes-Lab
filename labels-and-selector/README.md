@@ -5,7 +5,6 @@ The pod.yml manifest file defines a Kubernetes Pod named nishant-label with labe
 1. **Apply the Pod Manifest:**
     
     ```bash
-    bashCopy code
     kubectl apply -f pod.yml
     
     ```
