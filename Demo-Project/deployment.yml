@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-   name: bb-demo
+   name: my-app
    namespace: default
 spec:
    replicas: 1
@@ -21,7 +21,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-   name: bb-entrypoint
+   name: my-svc
    namespace: default
 spec:
    type: NodePort
