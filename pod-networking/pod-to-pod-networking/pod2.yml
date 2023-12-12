@@ -2,6 +2,8 @@ kind: Pod
 apiVersion: v1
 metadata:
   name: testpod2
+  labels:
+    pod-type: communication-pod  # Added label
 spec:
   containers:
     - name: c01
